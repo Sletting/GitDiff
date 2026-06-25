@@ -1,0 +1,106 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.VerifyReferenceTrimCompatibility = 
+build_property.VerifyReferenceAotCompatibility = 
+build_property.TargetFramework = net10.0
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v10.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = true
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EntryPointFilePath = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = PrDiffViewer.Client
+build_property.RootNamespace = PrDiffViewer.Client
+build_property.ProjectDir = /home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = false
+build_property.RazorLangVersion = 10.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /home/sletting/Dev/GitDiff/src/PrDiffViewer.Client
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 10.0
+build_property.EnableCodeStyleSeverity = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/ChangeBadge.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9DaGFuZ2VCYWRnZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/CodeContent.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Db2RlQ29udGVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/CommitsView.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9Db21taXRzVmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/DiffCard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9EaWZmQ2FyZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/FilesView.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9GaWxlc1ZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/FileTreeView.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9GaWxlVHJlZVZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/HunkBand.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9IdW5rQmFuZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/InlineDiffView.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9JbmxpbmVEaWZmVmlldy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/NavBar.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9OYXZCYXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/OverviewView.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9PdmVydmlld1ZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/PrHeaderBar.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QckhlYWRlckJhci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/PrView.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QclZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/RepoSetup.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9SZXBvU2V0dXAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Components/SideBySideDiffView.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9TaWRlQnlTaWRlRGlmZlZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0L01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/Pages/NotFound.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTm90Rm91bmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 

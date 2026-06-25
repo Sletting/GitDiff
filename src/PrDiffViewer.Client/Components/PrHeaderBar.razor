@@ -1,0 +1,46 @@
+@* PR-style header: title, source → target branches, status, and change stats. *@
+
+<div class="pr-header">
+    <div class="pr-title-row">
+        <h1 class="pr-title">@Title</h1>
+        @if (ShortSha.Length > 0)
+        {
+            <span class="pr-id">@ShortSha</span>
+        }
+        <span class="pr-spacer"></span>
+        <button class="btn btn-default" @onclick="OnNewComparison">New comparison</button>
+    </div>
+    <div class="pr-meta-row">
+        <span class="branch-indicator">
+            <span class="branch-pill" title="Source branch">@Icons.Branch @Diff.SourceBranch</span>
+            <span class="into">into</span>
+            <span class="branch-pill" title="Target branch">@Icons.Branch @Diff.TargetBranch</span>
+        </span>
+        <span class="status-pill active"><span class="dot"></span>@ModeLabel</span>
+        <span>·</span>
+        <span>@Diff.Files.Count file@(Diff.Files.Count == 1 ? "" : "s")</span>
+        @if (Diff.TotalAdded > 0)
+        {
+            <span class="stat-add">+@Diff.TotalAdded</span>
+        }
+        @if (Diff.TotalDeleted > 0)
+        {
+            <span class="stat-del">−@Diff.TotalDeleted</span>
+        }
+        <span>·</span>
+        <span>@Diff.Commits.Count commit@(Diff.Commits.Count == 1 ? "" : "s")</span>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public DiffSummary Diff { get; set; } = default!;
+    [Parameter] public EventCallback OnNewComparison { get; set; }
+
+    private string Title => Diff.Commits.FirstOrDefault()?.Summary is { Length: > 0 } s
+        ? s
+        : $"{Diff.SourceBranch} → {Diff.TargetBranch}";
+
+    private string ShortSha => Diff.SourceTip?.ShortSha ?? "";
+
+    private string ModeLabel => Diff.Mode == DiffMode.MergeBase ? "Merge base" : "Direct";
+}

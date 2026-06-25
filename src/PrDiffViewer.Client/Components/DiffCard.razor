@@ -1,0 +1,203 @@
+@inject PrApiClient Api
+@* One file's diff: sticky header + body, collapsible, with expandable hidden context. *@
+
+<div class="diff-card @(Collapsed ? "collapsed" : "")" id="@CardId">
+    <div class="diff-card-header" @onclick="Toggle">
+        <span class="dch-chevron @(Collapsed ? "collapsed" : "")">▾</span>
+        <span class="dch-icon">@Icons.File</span>
+        <span class="dch-path">
+            @if (File.IsRename)
+            {
+                <span class="dir">@File.OldPath</span><span class="rename-arrow">→</span>
+            }
+            @if (_dir.Length > 0)
+            {
+                <span class="dir">@_dir</span>
+            }<span class="name">@_name</span>
+        </span>
+        <span class="dch-spacer"></span>
+        <span class="dch-stats">
+            @if (File.LinesAdded > 0)
+            {
+                <span class="stat-add">+@File.LinesAdded</span>
+            }
+            @if (File.LinesDeleted > 0)
+            {
+                <span class="stat-del">−@File.LinesDeleted</span>
+            }
+        </span>
+        <span class="dch-tag @TagClass">@Tag</span>
+    </div>
+
+    @if (!Collapsed)
+    {
+        <div class="diff-body">
+            @if (File.IsBinary)
+            {
+                <div class="diff-binary">Binary file not shown.</div>
+            }
+            else if (_blocks.Count == 0)
+            {
+                <div class="diff-empty-note">No content changes.</div>
+            }
+            else if (SideBySide)
+            {
+                <SideBySideDiffView Blocks="_blocks" Extension="@_ext" BusyGap="_busyGap"
+                                    OnExpandUp="ExpandUp" OnExpandDown="ExpandDown" OnExpandAll="ExpandAll" />
+            }
+            else
+            {
+                <InlineDiffView Blocks="_blocks" Extension="@_ext" BusyGap="_busyGap"
+                                OnExpandUp="ExpandUp" OnExpandDown="ExpandDown" OnExpandAll="ExpandAll" />
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private const int Chunk = 20;
+    private const int All = 1_000_000;
+    // Files larger than this start collapsed so a big diff doesn't render thousands of lines at once.
+    private const int LargeFileThreshold = 1000;
+
+    [Parameter, EditorRequired] public FileDiff File { get; set; } = default!;
+    [Parameter] public bool SideBySide { get; set; }
+    [Parameter, EditorRequired] public string RepoPath { get; set; } = "";
+    [Parameter, EditorRequired] public string NewCommitSha { get; set; } = "";
+    [Parameter] public string CardId { get; set; } = "";
+
+    private List<DiffBlock> _blocks = new();
+    private bool _blocksBuilt;
+    private GapBlock? _busyGap;
+    private string _ext = "";
+    private string _dir = "";
+    private string _name = "";
+    private bool _collapsed;
+    private bool Collapsed => _collapsed;
+
+    protected override void OnInitialized()
+    {
+        _ext = GetExtension(File.Path);
+
+        int idx = File.Path.LastIndexOf('/');
+        if (idx >= 0)
+        {
+            _dir = File.Path[..(idx + 1)];
+            _name = File.Path[(idx + 1)..];
+        }
+        else
+        {
+            _name = File.Path;
+        }
+
+        // Big files start collapsed; their (potentially huge) body is only built on demand.
+        _collapsed = (File.LinesAdded + File.LinesDeleted) > LargeFileThreshold;
+        if (!_collapsed)
+            EnsureBlocks();
+    }
+
+    private void EnsureBlocks()
+    {
+        if (_blocksBuilt) return;
+        _blocks = DiffBlocks.Build(File);
+        _blocksBuilt = true;
+    }
+
+    private void Toggle()
+    {
+        _collapsed = !_collapsed;
+        if (!_collapsed)
+            EnsureBlocks();
+    }
+
+    private string Tag => File.ChangeKind switch
+    {
+        ChangeKind.Added => "add",
+        ChangeKind.Deleted => "delete",
+        ChangeKind.Renamed => (File.LinesAdded + File.LinesDeleted) > 0 ? "rename, edit" : "rename",
+        ChangeKind.Copied => "copy",
+        ChangeKind.TypeChanged => "type change",
+        _ => "edit"
+    };
+
+    private string TagClass => File.ChangeKind switch
+    {
+        ChangeKind.Added => "add",
+        ChangeKind.Deleted => "delete",
+        ChangeKind.Renamed => "rename",
+        ChangeKind.Copied => "rename",
+        _ => "edit"
+    };
+
+    // ----- Hunk expansion -----
+
+    private async Task ExpandAll(GapBlock g)
+    {
+        int count = g.Count ?? All;
+        var lines = await Fetch(g.NewStart, count, g);
+        if (lines is null) return;
+
+        int i = _blocks.IndexOf(g);
+        if (i < 0) return;
+        _blocks[i] = new LinesBlock(DiffBlocks.ToContextLines(lines, g.NewStart, g.Offset));
+    }
+
+    // Reveal lines at the TOP of the gap (next to the preceding hunk).
+    private async Task ExpandDown(GapBlock g)
+    {
+        int take = g.Count is int c ? Math.Min(Chunk, c) : Chunk;
+        var lines = await Fetch(g.NewStart, take, g);
+        if (lines is null) return;
+
+        int i = _blocks.IndexOf(g);
+        if (i < 0) return;
+
+        _blocks.Insert(i, new LinesBlock(DiffBlocks.ToContextLines(lines, g.NewStart, g.Offset)));
+        int revealed = lines.Count;
+        g.NewStart += revealed;
+        g.OldStart += revealed;
+        if (g.Count is int cc) g.Count = cc - revealed;
+
+        if ((g.Count is int left && left <= 0) || revealed < take)
+            _blocks.Remove(g);
+    }
+
+    // Reveal lines at the BOTTOM of the gap (next to the following hunk). Only for known-size gaps.
+    private async Task ExpandUp(GapBlock g)
+    {
+        if (g.Count is not int c) return;
+        int take = Math.Min(Chunk, c);
+        int startNew = g.NewStart + c - take;
+        var lines = await Fetch(startNew, take, g);
+        if (lines is null) return;
+
+        int i = _blocks.IndexOf(g);
+        if (i < 0) return;
+
+        _blocks.Insert(i + 1, new LinesBlock(DiffBlocks.ToContextLines(lines, startNew, g.Offset)));
+        g.Count = c - lines.Count;
+        if (g.Count <= 0) _blocks.Remove(g);
+    }
+
+    private async Task<List<string>?> Fetch(int start, int count, GapBlock g)
+    {
+        _busyGap = g;
+        StateHasChanged();
+        try
+        {
+            var result = await Api.GetLinesAsync(RepoPath, NewCommitSha, File.NewPath, start, count);
+            return result.IsSuccess ? result.Value!.Lines : null;
+        }
+        finally
+        {
+            _busyGap = null;
+        }
+    }
+
+    private static string GetExtension(string path)
+    {
+        int dot = path.LastIndexOf('.');
+        int slash = path.LastIndexOf('/');
+        return dot > slash && dot >= 0 ? path[(dot + 1)..] : "";
+    }
+}

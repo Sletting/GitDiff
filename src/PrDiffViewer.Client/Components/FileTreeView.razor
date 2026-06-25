@@ -1,0 +1,44 @@
+@* Recursive changed-files tree (folders collapse/expand, files select). *@
+
+@foreach (var node in Nodes)
+{
+    <div class="tree-row @(IsSelected(node) ? "selected" : "")"
+         style="padding-left:@(8 + Depth * 14)px"
+         @onclick="() => Click(node)">
+        <span class="tree-chevron @ChevronClass(node)">▾</span>
+        <span class="tree-icon">@(node.IsFolder ? Icons.Folder : Icons.File)</span>
+        <span class="tree-label">@node.Name</span>
+        @if (!node.IsFolder && node.File is not null)
+        {
+            <ChangeBadge Kind="node.File.ChangeKind" />
+        }
+    </div>
+
+    @if (node.IsFolder && node.Expanded)
+    {
+        <FileTreeView Nodes="node.Children" Depth="Depth + 1" SelectedPath="SelectedPath" OnSelectFile="OnSelectFile" />
+    }
+}
+
+@code {
+    [Parameter, EditorRequired] public List<TreeNode> Nodes { get; set; } = new();
+    [Parameter] public int Depth { get; set; }
+    [Parameter] public string? SelectedPath { get; set; }
+    [Parameter] public EventCallback<TreeNode> OnSelectFile { get; set; }
+
+    private bool IsSelected(TreeNode node) => !node.IsFolder && node.Path == SelectedPath;
+
+    private string ChevronClass(TreeNode node)
+    {
+        if (!node.IsFolder) return "leaf";
+        return node.Expanded ? "" : "collapsed";
+    }
+
+    private async Task Click(TreeNode node)
+    {
+        if (node.IsFolder)
+            node.Expanded = !node.Expanded;
+        else
+            await OnSelectFile.InvokeAsync(node);
+    }
+}

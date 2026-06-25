@@ -1,0 +1,26 @@
+@* Azure DevOps-style top app bar (visual chrome). *@
+
+<div class="nav-bar">
+    <span class="nav-logo">
+        @Icons.Compare
+        Branch Review
+    </span>
+    <span class="nav-crumb">
+        @if (!string.IsNullOrEmpty(RepoName))
+        {
+            <span class="sep">/</span>
+            <span>@RepoName</span>
+        }
+    </span>
+    <span class="nav-spacer"></span>
+    <input class="nav-search" placeholder="Search" />
+    <span class="nav-icon" title="Settings">⚙</span>
+    <span class="nav-icon" title="@UserEmail">@Initial</span>
+</div>
+
+@code {
+    [Parameter] public string? RepoName { get; set; }
+    [Parameter] public string? UserEmail { get; set; }
+
+    private string Initial => string.IsNullOrEmpty(UserEmail) ? "?" : UserEmail!.Substring(0, 1).ToUpperInvariant();
+}

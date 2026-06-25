@@ -1,0 +1,36 @@
+@using System.Globalization
+@* The Commits tab: commits the source branch has that the target doesn't. *@
+
+<div class="tab-content-scroll">
+    <div class="commit-list">
+        @if (Diff.Commits.Count == 0)
+        {
+            <div class="no-files">No commits — the source branch has nothing the target branch is missing.</div>
+        }
+        else
+        {
+            @foreach (var c in Diff.Commits)
+            {
+                <div class="commit-row">
+                    <span class="tree-icon">@Icons.Branch</span>
+                    <div class="commit-main">
+                        <div class="commit-summary">@c.Summary</div>
+                        <div class="commit-meta">@c.Author committed @When(c.WhenIso)</div>
+                    </div>
+                    <span class="commit-sha">@c.ShortSha</span>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public DiffSummary Diff { get; set; } = default!;
+
+    private static string When(string iso)
+    {
+        return DateTime.TryParse(iso, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out var dt)
+            ? dt.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)
+            : iso;
+    }
+}

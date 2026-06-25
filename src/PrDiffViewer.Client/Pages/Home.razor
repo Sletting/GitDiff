@@ -1,0 +1,80 @@
+@page "/"
+@inject PrApiClient Api
+@* Orchestrates the setup screen and the PR view. *@
+
+<PageTitle>Branch Review</PageTitle>
+
+<div class="pr-app">
+    <NavBar RepoName="@(_diff?.RepoName ?? _branches?.RepoName)" />
+
+    @if (_showSetup || _diff is null)
+    {
+        <RepoSetup InitialRepoPath="@_repoPath"
+                   Branches="_branches"
+                   Busy="_busy"
+                   Error="_error"
+                   OnLoadBranches="LoadBranches"
+                   OnCompare="Compare" />
+    }
+    else
+    {
+        <PrView Diff="_diff" OnNewComparison="NewComparison" />
+    }
+</div>
+
+@code {
+    private string _repoPath = "";
+    private BranchList? _branches;
+    private DiffSummary? _diff;
+    private bool _busy;
+    private string? _error;
+    private bool _showSetup = true;
+
+    private async Task LoadBranches(string path)
+    {
+        _busy = true;
+        _error = null;
+        StateHasChanged();
+
+        var result = await Api.GetBranchesAsync(path);
+        if (result.IsSuccess)
+        {
+            _branches = result.Value;
+            _repoPath = path;
+        }
+        else
+        {
+            _branches = null;
+            _error = result.Error;
+        }
+
+        _busy = false;
+    }
+
+    private async Task Compare(CompareArgs args)
+    {
+        _busy = true;
+        _error = null;
+        StateHasChanged();
+
+        var result = await Api.GetDiffAsync(args.RepoPath, args.Source, args.Target, args.Mode);
+        if (result.IsSuccess)
+        {
+            _diff = result.Value;
+            _repoPath = args.RepoPath;
+            _showSetup = false;
+        }
+        else
+        {
+            _error = result.Error;
+        }
+
+        _busy = false;
+    }
+
+    private void NewComparison()
+    {
+        _error = null;
+        _showSetup = true;
+    }
+}

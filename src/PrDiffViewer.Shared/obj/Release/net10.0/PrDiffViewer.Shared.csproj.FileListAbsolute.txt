@@ -1,0 +1,11 @@
+/work/src/PrDiffViewer.Shared/bin/Release/net10.0/PrDiffViewer.Shared.deps.json
+/work/src/PrDiffViewer.Shared/bin/Release/net10.0/PrDiffViewer.Shared.dll
+/work/src/PrDiffViewer.Shared/bin/Release/net10.0/PrDiffViewer.Shared.pdb
+/work/src/PrDiffViewer.Shared/obj/Release/net10.0/PrDiffViewer.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/work/src/PrDiffViewer.Shared/obj/Release/net10.0/PrDiffViewer.Shared.AssemblyInfoInputs.cache
+/work/src/PrDiffViewer.Shared/obj/Release/net10.0/PrDiffViewer.Shared.AssemblyInfo.cs
+/work/src/PrDiffViewer.Shared/obj/Release/net10.0/PrDiffViewer.Shared.csproj.CoreCompileInputs.cache
+/work/src/PrDiffViewer.Shared/obj/Release/net10.0/PrDiffViewer.Shared.dll
+/work/src/PrDiffViewer.Shared/obj/Release/net10.0/refint/PrDiffViewer.Shared.dll
+/work/src/PrDiffViewer.Shared/obj/Release/net10.0/PrDiffViewer.Shared.pdb
+/work/src/PrDiffViewer.Shared/obj/Release/net10.0/ref/PrDiffViewer.Shared.dll

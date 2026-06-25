@@ -1,0 +1,62 @@
+@* Side-by-side diff: one grid, original (left) and modified (right) panes aligned row-for-row. *@
+
+<div class="sbs-diff">
+    @foreach (var block in Blocks)
+    {
+        @if (block is LinesBlock lb)
+        {
+            @foreach (var row in SideBySide.Build(lb.Lines))
+            {
+                var lc = LeftClass(row);
+                var rc = RightClass(row);
+                <div class="cell-bar @lc"></div>
+                <div class="cell-gutter @lc">@row.Left?.OldLineNumber</div>
+                @if (row.Left is not null)
+                {
+                    <div class="cell-code @lc"><CodeContent Line="row.Left" Extension="Extension" WordClass="@(row.Left.Kind == DiffLineKind.Deleted ? "w-del" : "")" /></div>
+                }
+                else
+                {
+                    <div class="cell-code @lc"></div>
+                }
+                <div class="cell-bar right-bar @rc"></div>
+                <div class="cell-gutter @rc">@row.Right?.NewLineNumber</div>
+                @if (row.Right is not null)
+                {
+                    <div class="cell-code @rc"><CodeContent Line="row.Right" Extension="Extension" WordClass="@(row.Right.Kind == DiffLineKind.Added ? "w-add" : "")" /></div>
+                }
+                else
+                {
+                    <div class="cell-code @rc"></div>
+                }
+            }
+        }
+        else if (block is GapBlock gb)
+        {
+            <div class="sbs-band" style="grid-column: 1 / -1;">
+                <HunkBand Gap="gb" Busy="@(BusyGap == gb)" OnExpandUp="OnExpandUp" OnExpandDown="OnExpandDown" OnExpandAll="OnExpandAll" />
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public List<DiffBlock> Blocks { get; set; } = new();
+    [Parameter] public string Extension { get; set; } = "";
+    [Parameter] public GapBlock? BusyGap { get; set; }
+    [Parameter] public EventCallback<GapBlock> OnExpandUp { get; set; }
+    [Parameter] public EventCallback<GapBlock> OnExpandDown { get; set; }
+    [Parameter] public EventCallback<GapBlock> OnExpandAll { get; set; }
+
+    private static string LeftClass(SideBySideRow row)
+    {
+        if (row.Left is null) return "s-empty";
+        return row.Left.Kind == DiffLineKind.Deleted ? "s-del" : "s-ctx";
+    }
+
+    private static string RightClass(SideBySideRow row)
+    {
+        if (row.Right is null) return "s-empty";
+        return row.Right.Kind == DiffLineKind.Added ? "s-add" : "s-ctx";
+    }
+}

@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PrDiffViewer.Client/PrDiffViewer.Client.csproj" />
+    <Project Path="src/PrDiffViewer.Server/PrDiffViewer.Server.csproj" />
+    <Project Path="src/PrDiffViewer.Shared/PrDiffViewer.Shared.csproj" />
+  </Folder>
+</Solution>

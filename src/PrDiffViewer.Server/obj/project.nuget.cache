@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "+SBC5k5nPd8=",
+  "success": true,
+  "projectFilePath": "/home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/PrDiffViewer.Server.csproj",
+  "expectedPackageFiles": [
+    "/home/sletting/.nuget/packages/libgit2sharp/0.31.0/libgit2sharp.0.31.0.nupkg.sha512",
+    "/home/sletting/.nuget/packages/libgit2sharp.nativebinaries/2.0.323/libgit2sharp.nativebinaries.2.0.323.nupkg.sha512",
+    "/home/sletting/.nuget/packages/microsoft.aspnetcore.components.webassembly/10.0.9/microsoft.aspnetcore.components.webassembly.10.0.9.nupkg.sha512",
+    "/home/sletting/.nuget/packages/microsoft.aspnetcore.components.webassembly.server/10.0.9/microsoft.aspnetcore.components.webassembly.server.10.0.9.nupkg.sha512",
+    "/home/sletting/.nuget/packages/microsoft.jsinterop.webassembly/10.0.9/microsoft.jsinterop.webassembly.10.0.9.nupkg.sha512"
+  ],
+  "logs": []
+}

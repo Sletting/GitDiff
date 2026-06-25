@@ -1,0 +1,54 @@
+@* Unified (inline) diff: one column, dual gutters (old/new), +/- markers. *@
+
+<div class="inline-diff">
+    @foreach (var block in Blocks)
+    {
+        @if (block is LinesBlock lb)
+        {
+            @foreach (var line in lb.Lines)
+            {
+                <div class="di-line @RowClass(line)">
+                    <div class="change-bar"></div>
+                    <div class="di-gutter old-num">@line.OldLineNumber</div>
+                    <div class="di-gutter new-num">@line.NewLineNumber</div>
+                    <div class="di-marker">@Marker(line)</div>
+                    <div class="di-code"><CodeContent Line="line" Extension="Extension" WordClass="@WordClass(line)" /></div>
+                </div>
+            }
+        }
+        else if (block is GapBlock gb)
+        {
+            <HunkBand Gap="gb" Busy="@(BusyGap == gb)" OnExpandUp="OnExpandUp" OnExpandDown="OnExpandDown" OnExpandAll="OnExpandAll" />
+        }
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public List<DiffBlock> Blocks { get; set; } = new();
+    [Parameter] public string Extension { get; set; } = "";
+    [Parameter] public GapBlock? BusyGap { get; set; }
+    [Parameter] public EventCallback<GapBlock> OnExpandUp { get; set; }
+    [Parameter] public EventCallback<GapBlock> OnExpandDown { get; set; }
+    [Parameter] public EventCallback<GapBlock> OnExpandAll { get; set; }
+
+    private static string RowClass(DiffLine l) => l.Kind switch
+    {
+        DiffLineKind.Added => "line-add",
+        DiffLineKind.Deleted => "line-del",
+        _ => "line-ctx"
+    };
+
+    private static string Marker(DiffLine l) => l.Kind switch
+    {
+        DiffLineKind.Added => "+",
+        DiffLineKind.Deleted => "-",
+        _ => ""
+    };
+
+    private static string WordClass(DiffLine l) => l.Kind switch
+    {
+        DiffLineKind.Added => "w-add",
+        DiffLineKind.Deleted => "w-del",
+        _ => ""
+    };
+}

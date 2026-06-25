@@ -1,0 +1,35 @@
+@* Small colored change-type badge shown next to a file name, like the ADO file tree. *@
+
+<span class="change-badge @CssClass" title="@Title">@Glyph</span>
+
+@code {
+    [Parameter, EditorRequired] public ChangeKind Kind { get; set; }
+
+    private string CssClass => Kind switch
+    {
+        ChangeKind.Added => "add",
+        ChangeKind.Deleted => "delete",
+        ChangeKind.Renamed => "rename",
+        ChangeKind.Copied => "copy",
+        _ => "edit"
+    };
+
+    private string Glyph => Kind switch
+    {
+        ChangeKind.Added => "+",
+        ChangeKind.Deleted => "−",   // minus sign
+        ChangeKind.Renamed => "→",   // right arrow
+        ChangeKind.Copied => "→",
+        _ => "✎"                       // pencil (edit)
+    };
+
+    private string Title => Kind switch
+    {
+        ChangeKind.Added => "Added",
+        ChangeKind.Deleted => "Deleted",
+        ChangeKind.Renamed => "Renamed",
+        ChangeKind.Copied => "Copied",
+        ChangeKind.TypeChanged => "Type changed",
+        _ => "Edited"
+    };
+}

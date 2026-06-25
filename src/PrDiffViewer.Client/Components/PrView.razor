@@ -1,0 +1,41 @@
+@* The full PR-style view: header, tab bar, and the active tab's content. *@
+
+<div class="pr-view">
+    <PrHeaderBar Diff="Diff" OnNewComparison="OnNewComparison" />
+
+    <div class="tab-bar">
+        <button class="tab @(_tab == Tab.Overview ? "active" : "")" @onclick="() => _tab = Tab.Overview">
+            Overview
+        </button>
+        <button class="tab @(_tab == Tab.Files ? "active" : "")" @onclick="() => _tab = Tab.Files">
+            Files <span class="count">@Diff.Files.Count</span>
+        </button>
+        <button class="tab @(_tab == Tab.Commits ? "active" : "")" @onclick="() => _tab = Tab.Commits">
+            Commits <span class="count">@Diff.Commits.Count</span>
+        </button>
+    </div>
+
+    <div class="tab-region">
+        @if (_tab == Tab.Files)
+        {
+            <FilesView Diff="Diff" />
+        }
+        else if (_tab == Tab.Commits)
+        {
+            <CommitsView Diff="Diff" />
+        }
+        else
+        {
+            <OverviewView Diff="Diff" />
+        }
+    </div>
+</div>
+
+@code {
+    private enum Tab { Overview, Files, Commits }
+
+    [Parameter, EditorRequired] public DiffSummary Diff { get; set; } = default!;
+    [Parameter] public EventCallback OnNewComparison { get; set; }
+
+    private Tab _tab = Tab.Files;
+}

@@ -1,0 +1,54 @@
+@using System.Text
+@using System.Text.Encodings.Web
+@* Renders one line of code: syntax-highlighted tokens, with changed runs wrapped for word-level highlight. *@
+
+@((MarkupString)_html)
+
+@code {
+    [Parameter, EditorRequired] public DiffLine Line { get; set; } = default!;
+    [Parameter] public string Extension { get; set; } = "";
+    /// <summary>"w-add" or "w-del" — the highlight applied to changed segments. Empty disables it.</summary>
+    [Parameter] public string WordClass { get; set; } = "";
+
+    private string _html = "";
+
+    protected override void OnParametersSet() => _html = Build();
+
+    private string Build()
+    {
+        var sb = new StringBuilder();
+
+        if (Line.Segments is { Count: > 0 } segments)
+        {
+            foreach (var seg in segments)
+            {
+                if (seg.Changed && WordClass.Length > 0)
+                {
+                    sb.Append("<span class=\"").Append(WordClass).Append("\">");
+                    AppendTokens(sb, seg.Text);
+                    sb.Append("</span>");
+                }
+                else
+                {
+                    AppendTokens(sb, seg.Text);
+                }
+            }
+        }
+        else
+        {
+            AppendTokens(sb, Line.Content);
+        }
+
+        return sb.ToString();
+    }
+
+    private void AppendTokens(StringBuilder sb, string text)
+    {
+        foreach (var tok in SyntaxHighlighter.Tokenize(text, Extension))
+        {
+            sb.Append("<span class=\"").Append(tok.Css).Append("\">")
+              .Append(HtmlEncoder.Default.Encode(tok.Text))
+              .Append("</span>");
+        }
+    }
+}

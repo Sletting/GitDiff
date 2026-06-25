@@ -1,0 +1,128 @@
+@* Setup screen: choose a local repository, then a source and target branch to compare. *@
+
+<div class="setup-scroll">
+    <div class="setup">
+        <h1>New comparison</h1>
+        <p class="sub">Point at a local Git repository, then pick two branches to review their differences.</p>
+
+        <div class="field">
+            <label for="repo-path">Repository path</label>
+            <div style="display:flex; gap:8px;">
+                <input id="repo-path" class="text-input mono" @bind="_repoPath" @bind:event="oninput"
+                       @onkeydown="OnPathKeyDown" placeholder="/path/to/your/repo" style="flex:1;" />
+                <button class="btn btn-default" @onclick="LoadBranches" disabled="@(Busy || string.IsNullOrWhiteSpace(_repoPath))">
+                    @(Busy && Branches is null ? "Loading…" : "Load branches")
+                </button>
+            </div>
+            <div class="hint">A folder on this machine that contains a Git repository (or any subfolder of one).</div>
+        </div>
+
+        @if (Branches is not null)
+        {
+            <div class="branch-row">
+                <div class="field">
+                    <label>Source branch (the changes)</label>
+                    <select class="select-input" @bind="_source">
+                        @foreach (var b in Branches.Branches)
+                        {
+                            <option value="@b.Name">@b.Name@(b.IsHead ? "  (current)" : "")</option>
+                        }
+                    </select>
+                </div>
+                <div class="arrow">→</div>
+                <div class="field">
+                    <label>Target branch (compare into)</label>
+                    <select class="select-input" @bind="_target">
+                        @foreach (var b in Branches.Branches)
+                        {
+                            <option value="@b.Name">@b.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="field" style="margin-top:18px;">
+                <label>Diff type</label>
+                <select class="select-input" @bind="_mode">
+                    <option value="@DiffMode.MergeBase">Changes since merge base (like a pull request)</option>
+                    <option value="@DiffMode.Direct">Direct branch-to-branch differences</option>
+                </select>
+            </div>
+
+            <div class="setup-actions">
+                <button class="btn btn-primary" @onclick="Compare" disabled="@(!CanCompare)">
+                    @(Busy ? "Comparing…" : "Compare changes")
+                </button>
+                @if (_source == _target)
+                {
+                    <span style="color:var(--ado-text-secondary); font-size:12.5px;">Pick two different branches.</span>
+                }
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Error))
+        {
+            <div class="message-bar error">
+                <span class="mb-icon">⚠</span>
+                <span>@Error</span>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public string InitialRepoPath { get; set; } = "";
+    [Parameter] public BranchList? Branches { get; set; }
+    [Parameter] public bool Busy { get; set; }
+    [Parameter] public string? Error { get; set; }
+    [Parameter] public EventCallback<string> OnLoadBranches { get; set; }
+    [Parameter] public EventCallback<CompareArgs> OnCompare { get; set; }
+
+    private string _repoPath = "";
+    private string _source = "";
+    private string _target = "";
+    private DiffMode _mode = DiffMode.MergeBase;
+    private BranchList? _seenBranches;
+
+    private bool CanCompare => !Busy && !string.IsNullOrEmpty(_source) && !string.IsNullOrEmpty(_target) && _source != _target;
+
+    protected override void OnInitialized()
+    {
+        if (string.IsNullOrEmpty(_repoPath))
+            _repoPath = InitialRepoPath;
+    }
+
+    protected override void OnParametersSet()
+    {
+        // When a freshly loaded branch list arrives, choose sensible defaults.
+        if (Branches is not null && !ReferenceEquals(Branches, _seenBranches))
+        {
+            _seenBranches = Branches;
+            PickDefaults();
+        }
+    }
+
+    private void PickDefaults()
+    {
+        var names = Branches!.Branches.Select(b => b.Name).ToList();
+        if (names.Count == 0) return;
+
+        string? preferredTarget = new[] { "main", "master", "develop", "trunk" }
+            .FirstOrDefault(n => names.Contains(n));
+
+        _target = preferredTarget ?? Branches.HeadBranch ?? names[0];
+        _source = Branches.HeadBranch is { } head && head != _target
+            ? head
+            : names.FirstOrDefault(n => n != _target) ?? names[0];
+    }
+
+    private async Task OnPathKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+            await LoadBranches();
+    }
+
+    private Task LoadBranches() => OnLoadBranches.InvokeAsync(_repoPath?.Trim() ?? "");
+
+    private Task Compare() => OnCompare.InvokeAsync(new CompareArgs(_repoPath!.Trim(), _source, _target, _mode));
+}

@@ -1,0 +1,64 @@
+@* The Overview tab: a quick summary of the comparison. *@
+
+<div class="tab-content-scroll">
+    <div class="overview">
+        <div class="ov-card">
+            <div class="ov-row">
+                <span class="ov-key">Source</span>
+                <span class="branch-pill">@Icons.Branch @Diff.SourceBranch</span>
+                @if (Diff.SourceTip is not null)
+                {
+                    <span class="ov-dim">@Diff.SourceTip.ShortSha · @Diff.SourceTip.Summary</span>
+                }
+            </div>
+            <div class="ov-row">
+                <span class="ov-key">Target</span>
+                <span class="branch-pill">@Icons.Branch @Diff.TargetBranch</span>
+                @if (Diff.TargetTip is not null)
+                {
+                    <span class="ov-dim">@Diff.TargetTip.ShortSha · @Diff.TargetTip.Summary</span>
+                }
+            </div>
+            @if (Diff.MergeBase is not null)
+            {
+                <div class="ov-row">
+                    <span class="ov-key">Merge base</span>
+                    <span class="ov-dim">@Diff.MergeBase.ShortSha · @Diff.MergeBase.Summary</span>
+                </div>
+            }
+            <div class="ov-row">
+                <span class="ov-key">Changes</span>
+                <span>
+                    @Diff.Files.Count file@(Diff.Files.Count == 1 ? "" : "s"),
+                    @Diff.Commits.Count commit@(Diff.Commits.Count == 1 ? "" : "s")
+                    &nbsp;<span class="stat-add">+@Diff.TotalAdded</span> <span class="stat-del">−@Diff.TotalDeleted</span>
+                </span>
+            </div>
+        </div>
+
+        <h2 class="ov-title">Files</h2>
+        <div class="ov-files">
+            @foreach (var f in Diff.Files)
+            {
+                <div class="ov-file-row">
+                    <ChangeBadge Kind="f.ChangeKind" />
+                    <span class="ov-file-path">@f.Path</span>
+                    <span class="ov-file-stats">
+                        @if (f.LinesAdded > 0)
+                        {
+                            <span class="stat-add">+@f.LinesAdded</span>
+                        }
+                        @if (f.LinesDeleted > 0)
+                        {
+                            <span class="stat-del">−@f.LinesDeleted</span>
+                        }
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public DiffSummary Diff { get; set; } = default!;
+}

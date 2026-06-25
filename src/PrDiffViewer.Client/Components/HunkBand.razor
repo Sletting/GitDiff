@@ -1,0 +1,37 @@
+@* The grey "collapsed lines" band between hunks, with expand affordances (ADO-style). *@
+
+<div class="hunk-band">
+    <span class="hb-actions">
+        @if (!Gap.IsBottom)
+        {
+            <button title="Expand lines above" @onclick="() => OnExpandUp.InvokeAsync(Gap)" disabled="@Busy">⌃</button>
+        }
+        @if (!Gap.IsTop)
+        {
+            <button title="Expand lines below" @onclick="() => OnExpandDown.InvokeAsync(Gap)" disabled="@Busy">⌄</button>
+        }
+        <button title="Expand all hidden lines" @onclick="() => OnExpandAll.InvokeAsync(Gap)" disabled="@Busy">⇕ Expand all</button>
+    </span>
+    <span class="hb-info">
+        @if (Busy)
+        {
+            <text>Expanding…</text>
+        }
+        else if (Gap.Count is int c)
+        {
+            <text>@c hidden line@(c == 1 ? "" : "s")</text>
+        }
+        else
+        {
+            <text>Hidden lines</text>
+        }
+    </span>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public GapBlock Gap { get; set; } = default!;
+    [Parameter] public bool Busy { get; set; }
+    [Parameter] public EventCallback<GapBlock> OnExpandUp { get; set; }
+    [Parameter] public EventCallback<GapBlock> OnExpandDown { get; set; }
+    [Parameter] public EventCallback<GapBlock> OnExpandAll { get; set; }
+}

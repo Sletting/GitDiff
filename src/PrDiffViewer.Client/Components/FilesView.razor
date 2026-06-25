@@ -1,0 +1,98 @@
+@inject IJSRuntime JS
+@* The Files tab: file tree, draggable splitter, and the stacked diff cards. *@
+
+<div class="files-body" style="--ado-filetree-width:@(_treeWidth.ToString(System.Globalization.CultureInfo.InvariantCulture))px">
+    <div class="file-panel">
+        <div class="file-panel-head">
+            <span>Files</span>
+            <span class="fp-count">@Diff.Files.Count</span>
+        </div>
+        <div class="file-tree">
+            @if (Diff.Files.Count == 0)
+            {
+                <div class="no-files">No changed files.</div>
+            }
+            else
+            {
+                <FileTreeView Nodes="_tree" SelectedPath="_selectedPath" OnSelectFile="SelectFile" />
+            }
+        </div>
+    </div>
+
+    <div class="splitter @(_dragging ? "dragging" : "")" @onpointerdown="StartDrag"></div>
+
+    <div class="diff-area">
+        <div class="secondary-toolbar">
+            <div class="segmented">
+                <button class="@(_sideBySide ? "active" : "")" @onclick="() => _sideBySide = true">▥ Side by side</button>
+                <button class="@(!_sideBySide ? "active" : "")" @onclick="() => _sideBySide = false">≣ Inline</button>
+            </div>
+            <span class="tb-spacer"></span>
+            <span class="tb-summary">
+                @Diff.Files.Count file@(Diff.Files.Count == 1 ? "" : "s") changed
+                @if (Diff.TotalAdded > 0 || Diff.TotalDeleted > 0)
+                {
+                    <text>, </text><span class="stat-add">+@Diff.TotalAdded</span> <span class="stat-del">−@Diff.TotalDeleted</span>
+                }
+            </span>
+        </div>
+        <div class="diff-scroll">
+            @if (Diff.Files.Count == 0)
+            {
+                <div class="no-files">These branches are identical — there are no file changes to show.</div>
+            }
+            else
+            {
+                @foreach (var file in Diff.Files)
+                {
+                    <DiffCard @key="file.Path" File="file" SideBySide="_sideBySide"
+                              RepoPath="@Diff.RepoPath" NewCommitSha="@SourceSha" CardId="@FileTree.CardId(file.Path)" />
+                }
+            }
+        </div>
+    </div>
+
+    @if (_dragging)
+    {
+        <div class="drag-overlay" @onpointermove="OnDrag" @onpointerup="EndDrag" @onpointerleave="EndDrag"></div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public DiffSummary Diff { get; set; } = default!;
+
+    private List<TreeNode> _tree = new();
+    private string? _selectedPath;
+    private bool _sideBySide = true;
+    private double _treeWidth = 300;
+    private bool _dragging;
+    private DiffSummary? _seen;
+
+    private string SourceSha => Diff.SourceTip?.Sha ?? "";
+
+    protected override void OnParametersSet()
+    {
+        if (!ReferenceEquals(Diff, _seen))
+        {
+            _seen = Diff;
+            _tree = FileTree.Build(Diff.Files);
+            _selectedPath = null;
+        }
+    }
+
+    private async Task SelectFile(TreeNode node)
+    {
+        _selectedPath = node.Path;
+        await JS.InvokeVoidAsync("prDiff.scrollToId", node.CardId);
+    }
+
+    private void StartDrag(PointerEventArgs e) => _dragging = true;
+
+    private void OnDrag(PointerEventArgs e)
+    {
+        if (_dragging)
+            _treeWidth = Math.Clamp(e.ClientX, 180, 640);
+    }
+
+    private void EndDrag(PointerEventArgs e) => _dragging = false;
+}
