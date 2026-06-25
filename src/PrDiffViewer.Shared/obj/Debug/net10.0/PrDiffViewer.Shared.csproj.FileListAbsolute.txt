@@ -20,3 +20,4 @@
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Shared/obj/Debug/net10.0/refint/PrDiffViewer.Shared.dll
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Shared/obj/Debug/net10.0/PrDiffViewer.Shared.pdb
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Shared/obj/Debug/net10.0/ref/PrDiffViewer.Shared.dll
+/home/sletting/Dev/GitDiff/src/PrDiffViewer.Shared/obj/Debug/net10.0/PrDiffViewer.Shared.sourcelink.json

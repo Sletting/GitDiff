@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PrDiffViewer.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7accdd21483419ef0317d28ae73b1b4bdba67c4f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3fe60ac33c7f1edaf307803db1f575616debbe36")]
 [assembly: System.Reflection.AssemblyProductAttribute("PrDiffViewer.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PrDiffViewer.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "9x4G3NyVOi4=",
+  "dgSpecHash": "eKlqgGgLD3k=",
   "success": true,
   "projectFilePath": "/home/sletting/Dev/GitDiff/src/PrDiffViewer.Client/PrDiffViewer.Client.csproj",
   "expectedPackageFiles": [
-    "/home/sletting/.nuget/packages/microsoft.aspnetcore.app.internal.assets/10.0.9/microsoft.aspnetcore.app.internal.assets.10.0.9.nupkg.sha512",
+    "/home/sletting/.nuget/packages/microsoft.aspnetcore.app.internal.assets/10.0.8/microsoft.aspnetcore.app.internal.assets.10.0.8.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.aspnetcore.authorization/10.0.9/microsoft.aspnetcore.authorization.10.0.9.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.aspnetcore.components/10.0.9/microsoft.aspnetcore.components.10.0.9.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.aspnetcore.components.analyzers/10.0.9/microsoft.aspnetcore.components.analyzers.10.0.9.nupkg.sha512",
@@ -13,6 +13,7 @@
     "/home/sletting/.nuget/packages/microsoft.aspnetcore.components.webassembly/10.0.9/microsoft.aspnetcore.components.webassembly.10.0.9.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.aspnetcore.components.webassembly.devserver/10.0.9/microsoft.aspnetcore.components.webassembly.devserver.10.0.9.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.aspnetcore.metadata/10.0.9/microsoft.aspnetcore.metadata.10.0.9.nupkg.sha512",
+    "/home/sletting/.nuget/packages/microsoft.dotnet.hotreload.webassembly.browser/10.0.108/microsoft.dotnet.hotreload.webassembly.browser.10.0.108.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.extensions.configuration/10.0.9/microsoft.extensions.configuration.10.0.9.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.extensions.configuration.abstractions/10.0.9/microsoft.extensions.configuration.abstractions.10.0.9.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.extensions.configuration.binder/10.0.9/microsoft.extensions.configuration.binder.10.0.9.nupkg.sha512",
@@ -33,7 +34,7 @@
     "/home/sletting/.nuget/packages/microsoft.extensions.validation/10.0.9/microsoft.extensions.validation.10.0.9.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.jsinterop/10.0.9/microsoft.jsinterop.10.0.9.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.jsinterop.webassembly/10.0.9/microsoft.jsinterop.webassembly.10.0.9.nupkg.sha512",
-    "/home/sletting/.nuget/packages/microsoft.net.illink.tasks/10.0.9/microsoft.net.illink.tasks.10.0.9.nupkg.sha512",
+    "/home/sletting/.nuget/packages/microsoft.net.illink.tasks/10.0.8/microsoft.net.illink.tasks.10.0.8.nupkg.sha512",
     "/home/sletting/.nuget/packages/microsoft.net.sdk.webassembly.pack/10.0.9/microsoft.net.sdk.webassembly.pack.10.0.9.nupkg.sha512"
   ],
   "logs": []

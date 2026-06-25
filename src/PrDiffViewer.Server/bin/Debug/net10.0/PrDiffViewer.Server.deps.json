@@ -114,6 +114,14 @@
           }
         }
       },
+      "Microsoft.DotNet.HotReload.WebAssembly.Browser/10.0.108": {
+        "runtime": {
+          "lib/net10.0/Microsoft.DotNet.HotReload.WebAssembly.Browser.dll": {
+            "assemblyVersion": "10.0.108.0",
+            "fileVersion": "10.1.826.23019"
+          }
+        }
+      },
       "Microsoft.JSInterop.WebAssembly/10.0.9": {
         "runtime": {
           "lib/net10.0/Microsoft.JSInterop.WebAssembly.dll": {
@@ -125,6 +133,7 @@
       "PrDiffViewer.Client/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Components.WebAssembly": "10.0.9",
+          "Microsoft.DotNet.HotReload.WebAssembly.Browser": "10.0.108",
           "PrDiffViewer.Shared": "1.0.0"
         },
         "runtime": {
@@ -177,6 +186,13 @@
       "sha512": "sha512-ZTtYvBILwGxhIiXi1L03ETBBOgMmizStu7dO/YblK6rPTa27wpEgYKp5Z9bUfr+wsFvHIDWd/ZMGb9on41f6yw==",
       "path": "microsoft.aspnetcore.components.webassembly.server/10.0.9",
       "hashPath": "microsoft.aspnetcore.components.webassembly.server.10.0.9.nupkg.sha512"
+    },
+    "Microsoft.DotNet.HotReload.WebAssembly.Browser/10.0.108": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NLGmqCbkWslYuPGrOR8BRq3yTaYYTe8xtnRnCSNE3kwOBSjRhW60vH28l6s6/wywBPyjStfx94uuxJusGVWnhA==",
+      "path": "microsoft.dotnet.hotreload.webassembly.browser/10.0.108",
+      "hashPath": "microsoft.dotnet.hotreload.webassembly.browser.10.0.108.nupkg.sha512"
     },
     "Microsoft.JSInterop.WebAssembly/10.0.9": {
       "type": "package",

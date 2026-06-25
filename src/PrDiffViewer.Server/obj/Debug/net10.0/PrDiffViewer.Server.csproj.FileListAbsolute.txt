@@ -123,7 +123,6 @@
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/jsmodules/jsmodules.build.manifest.json
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/scopedcss/bundle/PrDiffViewer.Server.styles.css
-/home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/compressed/hzo2vrje0m-{0}-6kxqnuzan1-6kxqnuzan1.gz
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/staticwebassets.build.json
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/staticwebassets.build.json.cache
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/staticwebassets.development.json
@@ -132,3 +131,7 @@
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/PrDiffVi.BD87070E.Up2Date
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/PrDiffViewer.Server.genruntimeconfig.cache
 /home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/ref/PrDiffViewer.Server.dll
+/home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/bin/Debug/net10.0/Microsoft.DotNet.HotReload.WebAssembly.Browser.dll
+/home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/PrDiffViewer.Server.sourcelink.json
+/home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/compressed/f9o902iofb-{0}-99zm1jdh75-99zm1jdh75.gz
+/home/sletting/Dev/GitDiff/src/PrDiffViewer.Server/obj/Debug/net10.0/compressed/hzo2vrje0m-{0}-l81wce7d7i-l81wce7d7i.gz

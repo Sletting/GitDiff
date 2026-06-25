@@ -13,6 +13,7 @@
     <SourceRoot Include="/home/sletting/.nuget/packages/" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.dotnet.hotreload.webassembly.browser/10.0.108/buildTransitive/Microsoft.DotNet.HotReload.WebAssembly.Browser.props" Condition="Exists('$(NuGetPackageRoot)microsoft.dotnet.hotreload.webassembly.browser/10.0.108/buildTransitive/Microsoft.DotNet.HotReload.WebAssembly.Browser.props')" />
     <Import Project="$(NuGetPackageRoot)libgit2sharp.nativebinaries/2.0.323/build/LibGit2Sharp.NativeBinaries.props" Condition="Exists('$(NuGetPackageRoot)libgit2sharp.nativebinaries/2.0.323/build/LibGit2Sharp.NativeBinaries.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">

@@ -1,0 +1,104 @@
+# ============================================================================
+# .gitignore — PrDiffViewer (.NET 10 hosted Blazor WebAssembly solution)
+# Tailored for JetBrains Rider. Distilled from the canonical github/gitignore
+# VisualStudio + Global/JetBrains templates, trimmed to this stack.
+# ============================================================================
+
+# --- Build output -----------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Rr]eleases/
+[Oo]ut/
+bld/
+artifacts/
+.artifacts/
+Generated\ Files/
+
+# --- MSBuild / restore / logs -----------------------------------------------
+*.binlog
+MSBuild_Logs/
+*.tlog
+*.log
+project.lock.json
+project.fragment.lock.json
+
+# --- NuGet (PackageReference) -----------------------------------------------
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# --- Test results & code coverage -------------------------------------------
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+coverage*.json
+coverage*.xml
+coverage*.info
+BenchmarkDotNet.Artifacts/
+
+# --- Compiler / debugger files ----------------------------------------------
+*.pdb
+*.ipdb
+*.ilk
+*.idb
+*.iobj
+*.pch
+*.rsp
+!Directory.Build.rsp
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+
+# --- JetBrains Rider / IntelliJ / ReSharper ---------------------------------
+# Per-developer IDE state. The whole .idea/ folder is ignored; if the team
+# later wants to share, e.g., run configurations, un-ignore them explicitly:
+#   !.idea/runConfigurations/
+.idea/
+*.iml
+*.iws
+*.sln.iml
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+*.dotCover
+
+# --- Visual Studio / VS Code (cross-IDE team) -------------------------------
+.vs/
+*.suo
+*.user
+*.userosscache
+*.userprefs
+*.rsuser
+*.sln.docstates
+*.[Cc]ache
+!?*.[Cc]ache/
+.localhistory/
+.vshistory/
+.history/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# --- ASP.NET / web -----------------------------------------------------------
+ScaffoldingReadMe.txt
+healthchecksdb
+node_modules/
+
+# --- Secrets & signing material (never commit) ------------------------------
+*.pfx
+*.publishsettings
+*.env
+
+# --- OS & editor cruft -------------------------------------------------------
+.DS_Store
+Thumbs.db
+~$*
+*~
+*.bak

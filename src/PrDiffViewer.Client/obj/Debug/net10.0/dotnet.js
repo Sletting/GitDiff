@@ -5,7 +5,7 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
   "mainAssemblyName": "PrDiffViewer.Client",
   "applicationEnvironment": "Development",
   "resources": {
-    "hash": "sha256-sdRUV7HaW/Hg2hSSEJYDR2pk/sZdJBRku617f7YMYjw=",
+    "hash": "sha256-1YTrJ4KQ7igsu+xMAISLj+5KqfkysCo80kIgwqO0DmA=",
     "jsModuleNative": [
       {
         "name": "dotnet.native.534pdoiqq4.js"
@@ -72,6 +72,12 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
         "virtualPath": "Microsoft.AspNetCore.Metadata.wasm",
         "name": "Microsoft.AspNetCore.Metadata.bhaqktdl3q.wasm",
         "hash": "sha256-j++RGo33BhgVa0g5y83+TSz6cs3qmH+A5uEXVKZhtr8=",
+        "cache": "force-cache"
+      },
+      {
+        "virtualPath": "Microsoft.DotNet.HotReload.WebAssembly.Browser.wasm",
+        "name": "Microsoft.DotNet.HotReload.WebAssembly.Browser.3o7yr60r40.wasm",
+        "hash": "sha256-U+4AmmvYc494FPXvoqywjUT4CRR3mEiIc+zpId1IVKg=",
         "cache": "force-cache"
       },
       {
@@ -1216,45 +1222,39 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       },
       {
         "virtualPath": "PrDiffViewer.Shared.wasm",
-        "name": "PrDiffViewer.Shared.agcld4g2q4.wasm",
-        "hash": "sha256-Sm+ubI0SynJhLYqXS4T6icbnehXBssFLcwUm81SDWqA=",
-        "cache": "force-cache"
-      },
-      {
-        "virtualPath": "Microsoft.DotNet.HotReload.WebAssembly.Browser.wasm",
-        "name": "Microsoft.DotNet.HotReload.WebAssembly.Browser.3o7yr60r40.wasm",
-        "hash": "sha256-U+4AmmvYc494FPXvoqywjUT4CRR3mEiIc+zpId1IVKg=",
+        "name": "PrDiffViewer.Shared.24bvrux9vs.wasm",
+        "hash": "sha256-/jL2R93fCDfyI0ZUVOqKT46arMh4fo8IALf957oeJlA=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "PrDiffViewer.Client.wasm",
-        "name": "PrDiffViewer.Client.t4abxcouqm.wasm",
-        "hash": "sha256-84ZzXM0/YiL1vmv3Mq5jIbay/d9/RIo9QQ+CXhiKF8k=",
+        "name": "PrDiffViewer.Client.mgbw8as2ag.wasm",
+        "hash": "sha256-+k1V6MxuWZSMsxFBvdfT/WpXnEwVNdTuNwEifJAknPA=",
         "cache": "force-cache"
       }
     ],
     "pdb": [
       {
         "virtualPath": "PrDiffViewer.Shared.pdb",
-        "name": "PrDiffViewer.Shared.fritj8ksla.pdb",
-        "hash": "sha256-O1fqtNxdaRFnuXKCA9OGtXCugRPRHckmjbltDBJsulI=",
+        "name": "PrDiffViewer.Shared.aa254q7d8j.pdb",
+        "hash": "sha256-LomqbfC+FEqvdmqjMKIu/J6vC2+n7WfpgjAiJX07VZs=",
         "cache": "force-cache"
       },
       {
         "virtualPath": "PrDiffViewer.Client.pdb",
-        "name": "PrDiffViewer.Client.tr8ur5uy5j.pdb",
-        "hash": "sha256-F+knfbB6XRDzl2MiBr2DnnARog1PpcMUW/AMczzZPXY=",
+        "name": "PrDiffViewer.Client.xksnzh529q.pdb",
+        "hash": "sha256-cacfasLDQmEhzPab4SrCfF4od9ztGP4j00SOBF54lsQ=",
         "cache": "force-cache"
       }
     ],
     "libraryInitializers": [
       {
-        "name": "_framework/Microsoft.DotNet.HotReload.WebAssembly.Browser.p2tktok1gl.lib.module.js"
+        "name": "_content/Microsoft.DotNet.HotReload.WebAssembly.Browser/Microsoft.DotNet.HotReload.WebAssembly.Browser.99zm1jdh75.lib.module.js"
       }
     ],
     "modulesAfterConfigLoaded": [
       {
-        "name": "../_framework/Microsoft.DotNet.HotReload.WebAssembly.Browser.p2tktok1gl.lib.module.js"
+        "name": "../_content/Microsoft.DotNet.HotReload.WebAssembly.Browser/Microsoft.DotNet.HotReload.WebAssembly.Browser.99zm1jdh75.lib.module.js"
       }
     ]
   },
